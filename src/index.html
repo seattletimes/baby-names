@@ -10,9 +10,16 @@
   <body>
 
     <responsive-child>
-      <!-- content goes here -->
+      <select name="select">
+        <% for (var i = 2013; i > 1979; i--) { %>
+          <option value= <%= i %> > <%= i %> </option> 
+        <% } %>
+      </select>
     </responsive-child>
 
+    <script>
+      var namesData = <%= JSON.stringify(csv.baby_names) %>;
+    </script>
     <script src="app.js"></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>
