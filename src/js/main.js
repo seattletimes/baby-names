@@ -5,7 +5,7 @@
 require("component-responsive-frame/child");
 var d3 = require("d3");
 
-var diameter = 500,
+var diameter = 450,
     dropdown = document.querySelector("select");
 
 var svg = d3.select(".bubbles").append('svg')
@@ -71,9 +71,14 @@ var drawBubbles = function(selectedYear) {
   exiting.remove();
 }
 
+var updateInfo = function(year) {
+  document.querySelector(".info").innerHTML = `${year}`;
+};
+
 dropdown.addEventListener("change", function() { 
   clearTimeout(loop);
   drawBubbles(dropdown.value);
+  updateInfo(dropdown.value);
 });
 
 var years = [1980, 1985, 1990, 1995, 2000, 2005, 2010, 2013];
@@ -81,8 +86,8 @@ var i = 0;
 
 var loop = null;
 var tick = function() {
-  dropdown.value = years[i];
-  drawBubbles(dropdown.value);
+  drawBubbles(years[i]);
+  updateInfo(years[i]);
   i = (i + 1) % years.length;
   loop = setTimeout(tick, i == 0 ? 3000 : 1500);
 };

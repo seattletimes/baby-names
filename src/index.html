@@ -10,13 +10,21 @@
   <body>
 
     <responsive-child>
+
+      <div class="info"></div>
+
+      <div class="dropdown">
+        Select a year:
+        <select name="select">
+          <option selected="selected" disabled="disabled">--</option>
+          <% for (var i = 2013; i > 1979; i--) { %>
+            <option value= <%= i %> > <%= i %> </option> 
+          <% } %>
+        </select>
+      </div>
+
       <div class="bubbles"></div>
-      <div class="year"></div>
-      <select name="select">
-        <% for (var i = 2013; i > 1979; i--) { %>
-          <option value= <%= i %> > <%= i %> </option> 
-        <% } %>
-      </select>
+
     </responsive-child>
 
     <script>
