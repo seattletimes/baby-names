@@ -4,33 +4,37 @@
     <title><%= json.project.title %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <%= t.include("partials/_adHead.html") %>
   </head>
   <body>
 
     <responsive-child>
 
-      <div class="info"></div>
+      <div class="chart">
+        <div class="info"></div>
 
-      <div class="dropdown">
-        Select a year:
-        <select name="select">
-          <option selected="selected" disabled="disabled">--</option>
-          <% for (var i = 2013; i > 1979; i--) { %>
-            <option value= <%= i %> > <%= i %> </option> 
-          <% } %>
-        </select>
+        <div class="dropdown">
+          Select a year:
+          <select name="select">
+            <option selected="selected" disabled="disabled">--</option>
+            <% for (var i = 2013; i > 1979; i--) { %>
+              <option value= <%= i %> > <%= i %> </option> 
+            <% } %>
+          </select>
+        </div>
+
+        <div class="bubbles">
+          <div class="tooltip"></div>
+        </div>
       </div>
-
-      <div class="bubbles"></div>
 
     </responsive-child>
 
     <script>
       var namesData = <%= JSON.stringify(csv.baby_names) %>;
     </script>
-    <script src="app.js"></script>
+    <script src="../app.js"></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>
     <%= t.include("partials/_workHere.html") %>

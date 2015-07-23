@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <%= t.include("partials/_adHead.html") %>
+  </head>
+  <body>
+
+    <responsive-child>
+      
+      <div class="table" ng-app="baby-names">
+        <div ng-controller="NamesController">
+          
+          <input type="text" ng-change="search()" ng-model="searchText">
+          
+          <div class="table-container">
+            <table class="school-table">
+            <thead>
+              <tr ng-show="found.length > 0">
+                <th>Year
+                <th>Rank
+                <th>Name
+
+            <tbody>
+              <tr ng-show="found.length == 0 && !fresh">
+                <td colspan=100><em>No results found</em>
+              <tr ng-repeat="row in found" class="row">
+                <td>{{row.year}} 
+                <td>#{{row.rank}}
+                <td>{{row.name}} 
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </responsive-child>
+
+    <script>
+      var namesData = <%= JSON.stringify(csv.baby_names) %>;
+    </script>
+    <script src="../table.js"></script>
+    <% if (json.project.production) { %>
+    <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>
+    <%= t.include("partials/_workHere.html") %>
+    <% } %>
+  </body>
+</html>

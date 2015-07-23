@@ -3,9 +3,9 @@
 // var track = require("./lib/tracking");
 
 require("component-responsive-frame/child");
-var d3 = require("d3");
+var d3 = require("d3/d3.min.js");
 
-var diameter = 450,
+var diameter = 320,
     dropdown = document.querySelector("select");
 
 var svg = d3.select(".bubbles").append('svg')
@@ -17,6 +17,25 @@ var bubble = d3.layout.pack()
     .size([diameter, diameter])
     .padding(1.5)
     .value(d => d.size);
+
+// show tooltip
+
+var tooltip = document.querySelector(".tooltip");
+
+var showTooltip = function(d, target) {
+  svg.selectAll('.node').selectAll("circle")
+    .style("fill", function(d) { return d.sex == "F" ? "#fcc79b" : "#c1ceaf" })
+  d3.select(target)
+    .style("fill", function(d) { return d.sex == "F" ? "#f47920" : "#528965" })
+
+  tooltip.classList.add("show");
+  tooltip.innerHTML = `
+    <div><strong>Rank: ${d.rank}</strong></div>
+    <div>${d.perc}% of male babies</div>
+  `;
+}
+
+// draw bubbles
 
 var drawBubbles = function(selectedYear) {
   var duration = 1000;
@@ -43,6 +62,12 @@ var drawBubbles = function(selectedYear) {
       } else {
         return "#c1ceaf";
       }
+    })
+    .on("mouseenter", function(d) { 
+      showTooltip(d, this);
+    })
+    .on("mouseleave", function(d) { 
+      tooltip.classList.remove("show");
     });
   
   entering.append("text")
@@ -50,7 +75,7 @@ var drawBubbles = function(selectedYear) {
     .attr("dy", ".3em")
     .style("text-anchor", "middle")
     .style("fill", "black")
-    .text(function(d) { if (d.name) { return d.name.substring(0, d.r / 3); } });
+    .text(function(d) { if (d.name) { return d.name.substring(0, d.r / 2); } });
 
   var transition = node.transition()
     .duration(duration)
@@ -94,4 +119,12 @@ var tick = function() {
 
 tick();
 
+// get tooltip to move with cursor
 
+document.querySelector(".bubbles").addEventListener("mousemove", function(e) {
+  var bounds = this.getBoundingClientRect();
+  var x = e.clientX - bounds.left;
+  var y = e.clientY - bounds.top;
+  tooltip.style.left = x + 10 + "px";
+  tooltip.style.top = y + 10 + "px";
+});

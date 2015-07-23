@@ -12,8 +12,30 @@ body {
   max-width: 620px;
 }
 
+.chart {
+  width: 320px;
+  margin: auto;
+}
+.table {
+  display: inline-block;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background: @df-off-white;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid @df-light-gray;
+
+  &.show {
+    display: block;
+  }
+}
+
 .bubbles {
   text-align: center;
+  position: relative;
 }
 .dropdown {
   text-align: center;
@@ -21,11 +43,32 @@ body {
 }
 
 .node {
-  font-size: 15px;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .info {
   text-align: center;
   font-weight: bold;
   font-size: 28px;
+  font-family: @df-serif;
+}
+
+.table-container {
+  max-height: 200px;
+  overflow: scroll;
+}
+
+table {
+  font-size: 14px;
+  border-collapse: collapse;
+  margin-top: 10px;
+
+  tbody tr:nth-child(even) {
+    background: @df-off-white;
+  }
+
+  td {
+    padding: 8px 20px;
+  }
 }

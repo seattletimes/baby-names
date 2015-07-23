@@ -3,6 +3,7 @@ Build a bundled app.js file using browserify
 */
 module.exports = function(grunt) {
 
+  var async = require("async");
   var babel = require("babelify");
   var browserify = require("browserify");
   var exorcist = require("exorcist");
@@ -13,27 +14,38 @@ module.exports = function(grunt) {
     mode = mode || "dev";
     var done = this.async();
 
-    var b = browserify({ debug: mode == "dev" });
-    b.transform(babel);
+    var scripts = [
+      { src: "./src/js/main.js", dest: "build/app.js" },
+      { src: "./src/js/table.js", dest: "build/table.js" }
+    ];
 
-    //make sure build/ exists
-    grunt.file.mkdir("build");
-    var output = fs.createWriteStream("build/app.js");
+    async.each(scripts, function(config, c) {
 
-    b.add("./src/js/main.js");
-    var assembly = b.bundle();
-    if (mode == "dev") {
-      //output sourcemap
-      assembly = assembly.pipe(exorcist("./build/app.js.map", null, null, "."));
-    }
-    assembly.pipe(output).on("finish", function() {
-      //correct path separators in the sourcemap for Windows
-      var sourcemap = grunt.file.readJSON("./build/app.js.map");
-      sourcemap.sources = sourcemap.sources.map(function(s) { return s.replace(/\\/g, "/") });
-      grunt.file.write("./build/app.js.map", JSON.stringify(sourcemap, null, 2));
-      
-      done();
-    });
+
+      var b = browserify({ debug: mode == "dev" });
+      b.transform(babel);
+
+      //make sure build/ exists
+      grunt.file.mkdir("build");
+      var output = fs.createWriteStream(config.dest);
+
+      b.add(config.src);
+      var assembly = b.bundle();
+      var srcmapPath = config.dest + ".map";
+      if (mode == "dev") {
+        //output sourcemap
+        assembly = assembly.pipe(exorcist(srcmapPath, null, null, "."));
+      }
+      assembly.pipe(output).on("finish", function() {
+        //correct path separators in the sourcemap for Windows
+        var sourcemap = grunt.file.readJSON(srcmapPath);
+        sourcemap.sources = sourcemap.sources.map(function(s) { return s.replace(/\\/g, "/") });
+        grunt.file.write(srcmapPath, JSON.stringify(sourcemap, null, 2));
+        
+        c();
+      });
+
+    }, done);
 
   });
 
