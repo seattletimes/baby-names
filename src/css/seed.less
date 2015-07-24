@@ -94,7 +94,7 @@ body {
 
 .table-container {
   max-height: 200px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .table {
@@ -106,6 +106,7 @@ body {
 table {
   font-size: 14px;
   border-collapse: collapse;
+  width: 100%;
 
   tbody tr:nth-child(even) {
     background: @df-off-white;
@@ -116,7 +117,22 @@ table {
   }
 
   td {
-    padding: 8px 27px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #EEE;
+    text-align: center;
+  }
+}
+
+.scroll {
+  display: none;
+  font-size: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 5px;
+
+  &.show {
+    display: block;
   }
 }
 

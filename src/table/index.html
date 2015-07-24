@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <%= t.include("partials/_adHead.html") %>
   </head>
   <body>
@@ -19,7 +20,7 @@
           <input type="text" ng-change="search()" ng-model="searchText">
 
           <div class="table-container">
-            <table class="school-table">
+            <table class="names-table">
             <thead>
               <tr ng-show="found.length > 0">
                 <th>Name
@@ -36,6 +37,8 @@
             </table>
           </div>
         </div>
+
+        <div class="scroll"><i class="fa fa-angle-double-down"></i> Scroll for more</div>
 
         <div class="source">
           <em>Source: Washington State Department of Health</em>

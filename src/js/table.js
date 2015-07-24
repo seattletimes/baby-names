@@ -36,7 +36,13 @@ app.controller("NamesController", ["$scope", function($scope) {
       });
       $scope.fresh = false;
     }
+
     $scope.$apply();
+
+    document.querySelector(".scroll").classList.remove("show");
+    if (document.querySelector(".names-table").scrollHeight > 200) {
+      document.querySelector(".scroll").classList.add("show");
+    }
   });
 
   $scope.found = [];

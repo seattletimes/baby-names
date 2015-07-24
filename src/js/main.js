@@ -132,7 +132,7 @@ var tick = function() {
   drawBubbles(years[i]);
   updateInfo(years[i]);
   i = (i + 1) % years.length;
-  loop = setTimeout(tick, i == 0 ? 3000 : 1500);
+  loop = setTimeout(tick, i == 0 ? 3000 : 2000);
 };
 
 tick();
