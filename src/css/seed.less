@@ -12,11 +12,34 @@ body {
   max-width: 620px;
 }
 
+.hed {
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.chatter {
+  font-size: 14px;
+  padding-bottom: 15px;
+
+}
+
 .chart {
   width: 320px;
   margin: auto;
+
+  &.clickable {
+    .node {
+      cursor: pointer;
+    }
+
+    .note {
+      display: block;
+    }
+  }
 }
 .table {
+  width: 268px;
   display: inline-block;
 }
 
@@ -27,9 +50,16 @@ body {
   font-size: 12px;
   padding: 5px;
   border: 1px solid @df-light-gray;
+  white-space: nowrap;
 
   &.show {
     display: block;
+  }
+
+  &.flip {
+    webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 
@@ -42,9 +72,17 @@ body {
   font-size: 15px;
 }
 
+.note {
+  padding-top: 5px;
+  display: none;
+  font-size: 14px;
+  color: @df-middle-gray;
+  text-align: center;
+  font-style: italic;
+}
+
 .node {
   font-size: 13px;
-  cursor: pointer;
 }
 
 .info {
@@ -59,16 +97,37 @@ body {
   overflow: scroll;
 }
 
+.table {
+  input {
+    margin-bottom: 10px;
+  }
+}
+
 table {
   font-size: 14px;
   border-collapse: collapse;
-  margin-top: 10px;
 
   tbody tr:nth-child(even) {
     background: @df-off-white;
   }
 
+  th {
+    text-transform: uppercase;
+  }
+
   td {
-    padding: 8px 20px;
+    padding: 8px 27px;
+  }
+}
+
+.source {
+  padding-top: 10px;
+}
+.source, .credit {
+  font-size: 11.5px;
+  color: @df-middle-gray;
+
+  &.right {
+    text-align: right;
   }
 }

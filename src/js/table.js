@@ -13,13 +13,13 @@ app.controller("NamesController", ["$scope", function($scope) {
 
   $scope.search = util.debounce(function() {
     var value = $scope.searchText;
-    if (!value) {
+    if (!value || value.length < 3) {
       $scope.found = [];
       $scope.fresh = true;
     } else {
       value = value.toLowerCase();
       var filtered = all.filter(function(item) {
-        return item.name.toLowerCase().indexOf(value) > -1;
+        return item.name.toLowerCase() == value;
       });
       $scope.found = filtered.sort(function(a,b) {
         if (a.name == b.name) {

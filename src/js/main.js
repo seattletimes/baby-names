@@ -22,17 +22,31 @@ var bubble = d3.layout.pack()
 
 var tooltip = document.querySelector(".tooltip");
 
-var showTooltip = function(d, target) {
-  svg.selectAll('.node').selectAll("circle")
-    .style("fill", function(d) { return d.sex == "F" ? "#fcc79b" : "#c1ceaf" })
-  d3.select(target)
-    .style("fill", function(d) { return d.sex == "F" ? "#f47920" : "#528965" })
+var looping = true;
 
-  tooltip.classList.add("show");
-  tooltip.innerHTML = `
-    <div><strong>Rank: ${d.rank}</strong></div>
-    <div>${d.perc}% of male babies</div>
-  `;
+var showTooltip = function(d, target) {
+  if (!looping) {
+    svg.selectAll('.node').selectAll("circle")
+      .style("fill", function(d) { return d.sex == "F" ? "#fcc79b" : "#c1ceaf" })
+    d3.select(target.querySelector("circle"))
+      .style("fill", function(d) { return d.sex == "F" ? "#f47920" : "#528965" })
+
+    d.label = d.sex == "F" ? "female" : "male";
+
+    tooltip.classList.add("show");
+    tooltip.innerHTML = `
+      <div><strong>Rank: ${d.rank}</strong></div>
+      <div>${d.perc}% of ${d.label} babies</div>
+    `;
+  }
+}
+
+var hideTooltip = function(d, target) {
+  if (!looping) {
+    svg.selectAll('.node').selectAll("circle")
+      .style("fill", function(d) { return d.sex == "F" ? "#fcc79b" : "#c1ceaf" })
+    tooltip.classList.remove("show");
+  }
 }
 
 // draw bubbles
@@ -51,7 +65,14 @@ var drawBubbles = function(selectedYear) {
   var entering = node.enter()
     .append('g')
     .attr('transform', d => `translate(${d.x}, ${d.y})`)
-    .attr('class', 'node');
+    .attr('class', 'node')
+    .on("mouseenter", function(d) { 
+      showTooltip(d, this);
+    })
+    .on("mouseleave", function(d) { 
+      hideTooltip(d, this);
+      tooltip.classList.remove("show");
+    });
     
   entering.append("circle")
     .attr("r", d => 0)
@@ -62,14 +83,9 @@ var drawBubbles = function(selectedYear) {
       } else {
         return "#c1ceaf";
       }
-    })
-    .on("mouseenter", function(d) { 
-      showTooltip(d, this);
-    })
-    .on("mouseleave", function(d) { 
-      tooltip.classList.remove("show");
     });
-  
+
+
   entering.append("text")
     .style("opacity", 0)
     .attr("dy", ".3em")
@@ -101,6 +117,8 @@ var updateInfo = function(year) {
 };
 
 dropdown.addEventListener("change", function() { 
+  looping = false;
+  document.querySelector(".chart").classList.add("clickable");
   clearTimeout(loop);
   drawBubbles(dropdown.value);
   updateInfo(dropdown.value);
@@ -127,4 +145,6 @@ document.querySelector(".bubbles").addEventListener("mousemove", function(e) {
   var y = e.clientY - bounds.top;
   tooltip.style.left = x + 10 + "px";
   tooltip.style.top = y + 10 + "px";
+
+  tooltip.classList.toggle("flip", x > bounds.width / 2);
 });

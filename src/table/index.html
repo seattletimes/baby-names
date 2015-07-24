@@ -12,29 +12,36 @@
     <responsive-child>
       
       <div class="table" ng-app="baby-names">
+        <div class="hed">How popular was your name?</div>
+        <div class="chatter">Enter your name below to see if it ranked in the top 100 between 1980 and 2013.</div>
         <div ng-controller="NamesController">
           
           <input type="text" ng-change="search()" ng-model="searchText">
-          
+
           <div class="table-container">
             <table class="school-table">
             <thead>
               <tr ng-show="found.length > 0">
+                <th>Name
                 <th>Year
                 <th>Rank
-                <th>Name
 
             <tbody>
               <tr ng-show="found.length == 0 && !fresh">
                 <td colspan=100><em>No results found</em>
-              <tr ng-repeat="row in found" class="row">
+              <tr ng-repeat="row in found track by $index" class="row">
+                <td><span ng-show="$index == 0">{{row.name}}</span>
                 <td>{{row.year}} 
                 <td>#{{row.rank}}
-                <td>{{row.name}} 
             </table>
           </div>
-
         </div>
+
+        <div class="source">
+          <em>Source: Washington State Department of Health</em>
+        </div>
+        <div class="credit">AUDREY CARLSEN / THE SEATTLE TIMES</div>
+
       </div>
 
     </responsive-child>
