@@ -13,7 +13,7 @@ app.controller("NamesController", ["$scope", function($scope) {
 
   $scope.search = util.debounce(function() {
     var value = $scope.searchText;
-    if (!value || value.length < 3) {
+    if (!value || value.length < 2) {
       $scope.found = [];
       $scope.fresh = true;
     } else {

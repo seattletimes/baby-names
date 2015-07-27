@@ -63,6 +63,30 @@ body {
   }
 }
 
+.controls {
+  padding-top: 10px;
+  text-align: center;
+}
+.start, .pause {
+  border: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  color: @df-charcoal;
+  background: @df-light-gray;
+  padding: 5px 10px 4px 10px;
+
+  &:hover {
+    background: @df-border-gray;
+  }
+
+  &.selected {
+    color: @df-blue;
+    cursor: default;
+    background: @df-border-gray;
+  }
+}
+
 .bubbles {
   text-align: center;
   position: relative;
@@ -70,15 +94,18 @@ body {
 .dropdown {
   text-align: center;
   font-size: 15px;
+
+  select {
+    margin-left: 3px;
+  }
 }
 
 .note {
-  padding-top: 5px;
   display: none;
   font-size: 14px;
-  color: @df-middle-gray;
   text-align: center;
   font-style: italic;
+  font-weight: bold;
 }
 
 .node {
@@ -114,11 +141,14 @@ table {
 
   th {
     text-transform: uppercase;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #EEE;
   }
 
   td {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     border-bottom: 1px solid #EEE;
     text-align: center;
   }

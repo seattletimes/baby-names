@@ -117,12 +117,33 @@ var updateInfo = function(year) {
 };
 
 dropdown.addEventListener("change", function() { 
+  document.querySelector(".start").classList.remove("selected");
+  document.querySelector(".pause").classList.add("selected");
   looping = false;
   document.querySelector(".chart").classList.add("clickable");
   clearTimeout(loop);
   drawBubbles(dropdown.value);
   updateInfo(dropdown.value);
 });
+
+
+document.querySelector(".start").addEventListener("click", function(e) {
+  if (looping) { return }
+  document.querySelector(".start").classList.add("selected");
+  document.querySelector(".pause").classList.remove("selected");
+  looping = true;
+  document.querySelector(".chart").classList.remove("clickable");
+  dropdown.value = "--";
+  tick();
+})
+document.querySelector(".pause").addEventListener("click", function(e) {
+  if (!looping) { return }
+  document.querySelector(".pause").classList.add("selected");
+  document.querySelector(".start").classList.remove("selected");
+  looping = false;
+  document.querySelector(".chart").classList.add("clickable");
+  clearTimeout(loop);
+})
 
 var years = [1980, 1985, 1990, 1995, 2000, 2005, 2010, 2013];
 var i = 0;
