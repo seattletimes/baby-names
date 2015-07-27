@@ -138,8 +138,8 @@ document.querySelector(".start").addEventListener("click", function(e) {
 })
 document.querySelector(".pause").addEventListener("click", function(e) {
   if (!looping) { return }
-  document.querySelector(".pause").classList.add("selected");
   document.querySelector(".start").classList.remove("selected");
+  document.querySelector(".pause").classList.add("selected");
   looping = false;
   document.querySelector(".chart").classList.add("clickable");
   clearTimeout(loop);
@@ -167,5 +167,5 @@ document.querySelector(".bubbles").addEventListener("mousemove", function(e) {
   tooltip.style.left = x + 10 + "px";
   tooltip.style.top = y + 10 + "px";
 
-  tooltip.classList.toggle("flip", x > bounds.width / 2);
+  tooltip.classList[x > bounds.width / 2 ? "add" : "remove"]("flip");
 });
