@@ -113,7 +113,7 @@ var drawBubbles = function(selectedYear) {
 }
 
 var updateInfo = function(year) {
-  document.querySelector(".info").innerHTML = `${year}`;
+  document.querySelector(".info").innerHTML = `<strong>${year}</strong>`;
 };
 
 dropdown.addEventListener("change", function() { 

@@ -12,8 +12,14 @@
 
     <responsive-child>
 
+    <div class="outer">
+
+        <div class="chart-hed">
+          Most popular baby names in <span class="info"></span>
+        </div>
+        <div class="chart-chatter">Top 10% of baby names in Washington state every year.</div>
+
       <div class="chart">
-        <div class="info"></div>
 
         <div class="dropdown">
           Select a year:
@@ -23,12 +29,14 @@
               <option value= <%= i %> > <%= i %> </option> 
             <% } %>
           </select>
+
+          <div class="controls">
+            <div class="start selected"><i class="fa fa-play"></i></div>
+            <div class="pause"><i class="fa fa-pause"></i></div>
+          </div>
         </div>
 
-        <div class="controls">
-          <div class="start selected"><i class="fa fa-play"></i></div>
-          <div class="pause"><i class="fa fa-pause"></i></div>
-        </div>
+        
 
         <div class="bubbles">
           <div class="tooltip"></div>
@@ -37,11 +45,11 @@
         <div class="note">Roll over a name for more information.</div>
       </div>
 
-      <div class="right source">
+      <div class="source">
         <em>Source: Washington State Department of Health</em>
       </div>
-      <div class="right credit">AUDREY CARLSEN / THE SEATTLE TIMES</div>
-
+      <div class="credit">AUDREY CARLSEN / THE SEATTLE TIMES</div>
+</div>
     </responsive-child>
 
     <script>
